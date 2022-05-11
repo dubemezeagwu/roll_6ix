@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roll_6ix/presentation/game_home.dart';
+import 'package:roll_6ix/utils/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        backgroundColor: AppColors.backgroundColor,
         primarySwatch: Colors.blue,
       ),
       home: const GameHome(),
