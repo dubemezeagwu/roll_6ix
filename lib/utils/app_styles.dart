@@ -7,7 +7,15 @@ import 'package:roll_6ix/utils/extensions.dart';
 import 'app_colors.dart';
 
 class AppStyles {
-  static TextStyle regularWhite11 = GoogleFonts.dmSans(
+  static TextStyle regularWhite20 = GoogleFonts.dmSans(
+    textStyle: TextStyle(
+        fontSize: 20.sp,
+        color: AppColors.white,
+        fontWeight: FontWeight.w700
+    ),
+  );
+
+  static TextStyle regularBlack20 = GoogleFonts.dmSans(
     textStyle: TextStyle(
         fontSize: 20.sp,
         color: AppColors.darkerTextColor,
