@@ -1,6 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:roll_6ix/bloc/dice_cubit.dart';
+import 'package:roll_6ix/utils/app_assets.dart';
 import 'package:roll_6ix/utils/app_colors.dart';
+import 'package:roll_6ix/utils/app_strings.dart';
 import 'package:roll_6ix/utils/app_styles.dart';
 import 'package:roll_6ix/utils/extensions.dart';
 import 'package:roll_6ix/utils/size_config.dart';
@@ -37,7 +42,7 @@ class _GameHomeState extends State<GameHome> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("PLAYER 1 WINS", style: AppStyles.regularWhite20,),
+            Text(AppStrings.playerOneWins.message, style: AppStyles.regularWhite20,),
             SizedBox(height: 20.h,),
             Container(
               decoration: const BoxDecoration(
@@ -63,8 +68,16 @@ class _GameHomeState extends State<GameHome> {
                               child: SizedBox(
                                 height: 100.h,
                                   width: 100.h,
-                                  child: const Center(
-                                      child: Text("P1")
+                                  child: Center(
+                                      child: BlocBuilder<DiceCubit,DiceState>(
+                                          builder: (context,state){
+                                            if (state is DiceLoadedState){
+                                              return SvgPicture.asset(AppAssets.diceArray[0]);
+                                            } else {
+                                              return const Text("P1");
+                                            }
+                                          }
+                                      ),
                                   )
                               ),
                             )
@@ -79,8 +92,16 @@ class _GameHomeState extends State<GameHome> {
                               child: SizedBox(
                                   height: 100.h,
                                   width: 100.h,
-                                  child: const Center(
-                                      child: Text("P2")
+                                  child: Center(
+                                      child: BlocBuilder<DiceCubit,DiceState>(
+                                          builder: (context,state){
+                                            if (state is DiceLoadedState){
+                                              return SvgPicture.asset(AppAssets.diceArray[0]);
+                                            } else {
+                                              return const Text("P2");
+                                            }
+                                          }
+                                      )
                                   )
                               ),
                             )

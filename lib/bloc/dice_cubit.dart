@@ -8,7 +8,7 @@ import 'package:roll_6ix/utils/app_assets.dart';
 part 'dice_state.dart';
 
 class DiceCubit extends Cubit<DiceState> {
-  DiceCubit() : super(DiceState( null, null ));
+  DiceCubit() : super(DiceInitialState());
 
   final List<Player> listOfPlayers= [ playerOne,playerTwo];
   late var winningStatus;
@@ -21,6 +21,8 @@ class DiceCubit extends Cubit<DiceState> {
       gameResults.add(playerNumber);
       player.dice = AppAssets.diceArray[playerNumber];
     });
+
+    displayWinner(gameResults);
   }
 
   void displayWinner (List gameResults){
@@ -29,5 +31,6 @@ class DiceCubit extends Cubit<DiceState> {
         : "It is a Tie";
 
     winningStatus = winner;
+    print(winningStatus);
   }
 }

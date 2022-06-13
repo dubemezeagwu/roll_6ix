@@ -1,10 +1,10 @@
 class AppAssets {
   static const List<String> diceArray = [
-  "https://bit.ly/3KJziG6",
-  "https://bit.ly/3FdNar6",
-  "https://bit.ly/30W6IoA",
-  'https://bit.ly/37cHRLZ',
-  'https://bit.ly/3FLsU71',
-  "https://bit.ly/3vhkF14"
+  "assets/images/side_1.svg",
+  "assets/images/side_2.svg",
+  "assets/images/side_3.svg",
+  'assets/images/side_4.svg',
+  'assets/images/side_5.svg',
+  "assets/images/side_6.svg"
   ];
 }

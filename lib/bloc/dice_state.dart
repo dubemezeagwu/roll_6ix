@@ -1,11 +1,18 @@
 part of 'dice_cubit.dart';
 
-class DiceState extends Equatable {
+abstract class DiceState extends Equatable{}
+
+class DiceInitialState extends DiceState{
+  @override
+  List<Object?> get props => [];
+}
+
+class DiceLoadedState extends DiceState {
 
   String? diceOne;
   String? diceTwo;
 
-  DiceState(this.diceOne, this.diceTwo);
+  DiceLoadedState(this.diceOne, this.diceTwo);
 
   @override
   List<Object?> get props => [diceOne, diceTwo];
