@@ -9,11 +9,9 @@ class DiceInitialState extends DiceState{
 
 class DiceLoadedState extends DiceState {
 
-  String? diceOne;
-  String? diceTwo;
-
-  DiceLoadedState(this.diceOne, this.diceTwo);
+  final List<Player> players;
+  DiceLoadedState(this.players);
 
   @override
-  List<Object?> get props => [diceOne, diceTwo];
+  List<Object?> get props => [players];
 }

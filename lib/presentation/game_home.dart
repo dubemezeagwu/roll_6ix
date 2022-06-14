@@ -72,7 +72,8 @@ class _GameHomeState extends State<GameHome> {
                                       child: BlocBuilder<DiceCubit,DiceState>(
                                           builder: (context,state){
                                             if (state is DiceLoadedState){
-                                              return SvgPicture.asset(AppAssets.diceArray[0]);
+                                              // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[0]]);
+                                              return SvgPicture.asset(state.players[0].dice!);
                                             } else {
                                               return const Text("P1");
                                             }
@@ -96,7 +97,8 @@ class _GameHomeState extends State<GameHome> {
                                       child: BlocBuilder<DiceCubit,DiceState>(
                                           builder: (context,state){
                                             if (state is DiceLoadedState){
-                                              return SvgPicture.asset(AppAssets.diceArray[0]);
+                                              // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[1]]);
+                                              return SvgPicture.asset(state.players[1].dice!);
                                             } else {
                                               return const Text("P2");
                                             }
@@ -119,7 +121,10 @@ class _GameHomeState extends State<GameHome> {
                       height: 40,
                       width: 150,
                       child: RawMaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          context.read<DiceCubit>().startGameRound();
+                          context.read<DiceCubit>().emitDiceLoaded();
+                        },
                         fillColor: AppColors.darkOrange,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

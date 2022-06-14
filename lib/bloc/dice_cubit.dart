@@ -12,16 +12,16 @@ class DiceCubit extends Cubit<DiceState> {
 
   final List<Player> listOfPlayers= [ playerOne,playerTwo];
   late var winningStatus;
+  final gameResults = [];
 
   void startGameRound () {
-    final gameResults = [];
-
+    gameResults.clear();
     listOfPlayers.forEach((player) {
-      final playerNumber = Random().nextInt(5);
+      final playerNumber = Random().nextInt(6);
       gameResults.add(playerNumber);
       player.dice = AppAssets.diceArray[playerNumber];
     });
-
+    print(gameResults);
     displayWinner(gameResults);
   }
 
@@ -33,4 +33,6 @@ class DiceCubit extends Cubit<DiceState> {
     winningStatus = winner;
     print(winningStatus);
   }
+
+  void emitDiceLoaded () => emit(DiceLoadedState(listOfPlayers));
 }
