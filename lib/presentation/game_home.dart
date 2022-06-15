@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roll_6ix/bloc/dice_cubit.dart';
-import 'package:roll_6ix/utils/app_assets.dart';
 import 'package:roll_6ix/utils/app_colors.dart';
 import 'package:roll_6ix/utils/app_strings.dart';
 import 'package:roll_6ix/utils/app_styles.dart';
@@ -26,6 +25,7 @@ class _GameHomeState extends State<GameHome> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -34,111 +34,111 @@ class _GameHomeState extends State<GameHome> {
         elevation: 0,
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
-        title: Text("ROLL 6IX",style: AppStyles.regularBlack20,),
+        title: Text(
+          "ROLL 6IX",
+          style: AppStyles.regularBlack20,
+        ),
       ),
       backgroundColor: AppColors.backgroundColor,
-
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(AppStrings.playerOneWins.message, style: AppStyles.regularWhite20,),
-            SizedBox(height: 20.h,),
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.cream,
-                borderRadius: BorderRadius.all(Radius.circular(30))
-              ),
-              height: 300.h,
-              width: 350.h,
-              child: Padding(
-                padding:  EdgeInsets.all(12.0.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: BlocBuilder<DiceCubit, DiceState>(
+        builder: (context, state) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  state is DiceLoadedState
+                      ? state.winningStatus
+                      : AppStrings.playerOneWins.message,
+                  style: AppStyles.regularWhite20,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                      color: AppColors.cream,
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  height: 300.h,
+                  width: 350.h,
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        DottedBorder(
-                          padding: const EdgeInsets.all(6),
-                            radius: const Radius.circular(12),
-                            borderType: BorderType.RRect,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(30)),
-                              child: SizedBox(
-                                height: 100.h,
-                                  width: 100.h,
-                                  child: Center(
-                                      child: BlocBuilder<DiceCubit,DiceState>(
-                                          builder: (context,state){
-                                            if (state is DiceLoadedState){
-                                              // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[0]]);
-                                              return SvgPicture.asset(state.players[0].dice!);
-                                            } else {
-                                              return const Text("P1");
-                                            }
-                                          }
-                                      ),
-                                  )
-                              ),
-                            )
-                        ),
-                        const Text("VS"),
-                        DottedBorder(
-                            padding: const EdgeInsets.all(6),
-                            radius: const Radius.circular(12),
-                            borderType: BorderType.RRect,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(30)),
-                              child: SizedBox(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            DottedBorder(
+                                padding: const EdgeInsets.all(6),
+                                radius: const Radius.circular(12),
+                                borderType: BorderType.RRect,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(30)),
+                                  child: SizedBox(
+                                      height: 100.h,
+                                      width: 100.h,
+                                      child: Center(
+                                        child: state is DiceLoadedState
+                                            ?
+                                            // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[0]]);
+                                            SvgPicture.asset(
+                                                state.player1.dice!)
+                                            : const Text("P1"),
+                                      )),
+                                )),
+                            const Text("VS"),
+                            DottedBorder(
+                              padding: const EdgeInsets.all(6),
+                              radius: const Radius.circular(12),
+                              borderType: BorderType.RRect,
+                              child: ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(30)),
+                                child: SizedBox(
                                   height: 100.h,
                                   width: 100.h,
-                                  child: Center(
-                                      child: BlocBuilder<DiceCubit,DiceState>(
-                                          builder: (context,state){
-                                            if (state is DiceLoadedState){
-                                              // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[1]]);
-                                              return SvgPicture.asset(state.players[1].dice!);
-                                            } else {
-                                              return const Text("P2");
-                                            }
-                                          }
-                                      )
-                                  )
+                                  child: state is DiceLoadedState
+                                      ?
+                                      // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[1]]);
+                                      SvgPicture.asset(
+                                          state.player2.dice!,
+                                        )
+                                      : const Text("P2"),
+                                ),
                               ),
-                            )
+                            ),
+                          ],
                         ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              border:
+                                  Border.all(width: 2.5, color: Colors.white)),
+                          height: 40,
+                          width: 150,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              context.read<DiceCubit>().startGameRound();
+                            },
+                            fillColor: AppColors.darkOrange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: const Text("START GAME",
+                                style: TextStyle(
+                                    color: AppColors.darkerTextColor)),
+                          ),
+                        )
                       ],
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          width: 2.5,
-                          color: Colors.white
-                        )
-                      ),
-                      height: 40,
-                      width: 150,
-                      child: RawMaterialButton(
-                        onPressed: (){
-                          context.read<DiceCubit>().startGameRound();
-                          context.read<DiceCubit>().emitDiceLoaded();
-                        },
-                        fillColor: AppColors.darkOrange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: const Text("START GAME", style: TextStyle(color: AppColors.darkerTextColor)),
-
-                      )
-                    )
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
