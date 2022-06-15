@@ -47,9 +47,7 @@ class _GameHomeState extends State<GameHome> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  state is DiceLoadedState
-                      ? state.winningStatus
-                      : AppStrings.playerOneWins.message,
+                  state is DiceLoadedState ? state.winningStatus : "",
                   style: AppStyles.regularWhite20,
                 ),
                 SizedBox(
@@ -99,13 +97,15 @@ class _GameHomeState extends State<GameHome> {
                                 child: SizedBox(
                                   height: 100.h,
                                   width: 100.h,
-                                  child: state is DiceLoadedState
-                                      ?
-                                      // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[1]]);
-                                      SvgPicture.asset(
-                                          state.player2.dice!,
-                                        )
-                                      : const Text("P2"),
+                                  child: Center(
+                                    child: state is DiceLoadedState
+                                        ?
+                                        // return SvgPicture.asset(AppAssets.diceArray[context.read<DiceCubit>().gameResults[1]]);
+                                        SvgPicture.asset(
+                                            state.player2.dice!,
+                                          )
+                                        : const Text("P2"),
+                                  ),
                                 ),
                               ),
                             ),

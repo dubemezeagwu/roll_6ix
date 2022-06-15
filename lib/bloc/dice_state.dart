@@ -16,11 +16,9 @@ class DiceLoadedState extends DiceState {
   });
 
   String get winningStatus {
-    return identical(player1, player2)
+    return identical(player1.numberPlayed, player2.numberPlayed)
         ? 'It is a Tie'
-        : player1.numberPlayed > player2.numberPlayed
-            ? 'Player one'
-            : 'Player two';
+        : player1.numberPlayed > player2.numberPlayed ? 'Player One WINS!' : 'Player Two WINS!';
     //  player1.  ? 'It is a Tie' :
   }
 
